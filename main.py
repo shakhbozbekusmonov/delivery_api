@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 from auth_routes import auth_router
 from oder_routes import order_router
+from decouple import config
+
+env = config("ENV", default="dev")
+
 app = FastAPI()
 
 app.include_router(auth_router)
