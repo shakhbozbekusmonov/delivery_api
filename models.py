@@ -33,7 +33,7 @@ class Order(Base):
     quantity = Column(Integer, default=0)
     status = Column(ChoiceType(ORDER_STATUS), default="PENDING")
 
-    user_id = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(Integer, ForeignKey("user.id"))
     user = relationship("User", back_populates="orders")  # many-to-one relationship
     product_id = Column(Integer, ForeignKey("product.id"))
     product = relationship("Product", back_populates="orders")  # many-to-one relationship
@@ -48,6 +48,8 @@ class Product(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(255))
     price = Column(Integer)
+
+    orders = relationship("Order", back_populates="product")  # one-to-many relationship
 
     def __repr__(self):
         return f"<Product {self.name}>"
